@@ -6,6 +6,9 @@ from flask import Module, request, render_template, redirect,\
 
 from swtstore.classes.models import Context, User
 
+from swtstore.config import DefaultConfig
+
+config = DefaultConfig()
 
 context = Module(__name__)
 
@@ -17,7 +20,7 @@ def register():
         return redirect(url_for('frontend.index'))
 
     if request.method == 'GET':
-        return render_template('context/register.html')
+        return render_template('context/register.html', config=config)
 
     if request.method == 'POST':
         if not request.form.get('name') or not request.form.get('defn'):

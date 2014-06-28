@@ -5,9 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>SWT Store</title>
-    <link rel=stylesheet type=text/css href="{{ url_for('.static', filename='css/bootstrap.min.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('.static', filename='css/bootstrap-theme.min.css') }}">
-    <link rel=stylesheet type=text/css href="{{ url_for('.static', filename='css/style.css') }}">
+    <link rel=stylesheet type=text/css href="{{ config.SWTSTORE_URL }}{{ url_for('.static', filename='css/bootstrap.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ config.SWTSTORE_URL }}{{ url_for('.static', filename='css/bootstrap-theme.min.css') }}">
+    <link rel=stylesheet type=text/css href="{{ config.SWTSTORE_URL }}{{ url_for('.static', filename='css/style.css') }}">
     {% block head %}{% endblock %}
   </head>
   <body>
@@ -15,7 +15,7 @@
       <div class="header">
         <ul class="nav nav-tabs pull-right" role="navigation">
           <li>
-            <a href="{{ url_for('frontend.index') }}"> Home </a>
+            <a href="{{ config.SWTSTORE_URL }}{{ url_for('frontend.index') }}"> Home </a>
           </li>
           {% if not session.email %}
           <li>
@@ -24,7 +24,7 @@
           {% else %}
           <!-- swts list -->
           <li>
-            <a href="{{ url_for('user.mySweets') }}"> My Sweets </a>
+            <a href="{{ config.SWTSTORE_URL }}{{ url_for('user.mySweets') }}"> My Sweets </a>
           </li>
           <!-- the cog menu -->
           <li class="dropdown user-menu">
@@ -32,11 +32,11 @@
               <span class="glyphicon glyphicon-cog"></span>
             </a>
             <ul class="dropdown-menu" role="menu">
-              <li> <a href="{{ url_for('app.register') }}">Register New App</a> </li>
-              <li> <a href="{{ url_for('user.myApps') }}">Registered Apps</a> </li>
+              <li> <a href="{{ config.SWTSTORE_URL }}{{ url_for('app.register') }}">Register New App</a> </li>
+              <li> <a href="{{ config.SWTSTORE_URL }}{{ url_for('user.myApps') }}">Registered Apps</a> </li>
               <li class="divider"></li>
-              <li> <a href="{{ url_for('context.register') }}">Register New Context</a> </li>
-              <li> <a href="{{ url_for('user.myContexts') }}">Registered Contexts</a> </li>
+              <li> <a href="{{ config.SWTSTORE_URL }}{{ url_for('context.register') }}">Register New Context</a> </li>
+              <li> <a href="{{ config.SWTSTORE_URL }}{{ url_for('user.myContexts') }}">Registered Contexts</a> </li>
             </ul>
           </li>
           <!-- the user menu -->
@@ -47,12 +47,12 @@
             </a>
             <ul class="dropdown-menu" role="menu">
               <li>
-              <a href="{{ url_for('user.profile') }}"><small>
+              <a href="{{ config.SWTSTORE_URL }}{{ url_for('user.profile') }}"><small>
                   {{ session.email }}
               </small></a>
               </li>
               <li>
-                <a href="{{ url_for('user.authorizedApps') }}">
+                <a href="{{ config.SWTSTORE_URL }}{{ url_for('user.authorizedApps') }}">
                   My authorized apps
                 </a>
               </li>
@@ -82,13 +82,13 @@
 
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
     <!--script>window.jQuery || document.write('<script src="{{ url_for('.static', filename='js/jquery-1.9.1.min.js')}}"><\/script>')</script-->
-    <script src="{{ url_for('.static', filename='js/lib/bootstrap.min.js') }}"></script>
+    <script src="{{ config.SWTSTORE_URL }}{{ url_for('.static', filename='js/lib/bootstrap.min.js') }}"></script>
     <script src="https://login.persona.org/include.js"></script>
 
     <script>
       window.ss = window.ss || {};
-      ss.loginURL = function() { return "{{ url_for('user.login') }}"; };
-      ss.logoutURL = function() { return "{{ url_for('user.logout') }}"; };
+      ss.loginURL = function() { return "{{ config.SWTSTORE_URL }}{{ url_for('user.login') }}"; };
+      ss.logoutURL = function() { return "{{ config.SWTSTORE_URL }}{{ url_for('user.logout') }}"; };
       ss.loggedInUser = function() {
         return ("{{ session.email }}") ? "{{ session.email }}" : null;
       };
@@ -96,7 +96,7 @@
         ss.init();
       };
     </script>
-    <script src="{{ url_for('.static', filename='js/main.js') }}"></script>
+    <script src="{{ config.SWTSTORE_URL }}{{ url_for('.static', filename='js/main.js') }}"></script>
     {% block scripts %} {% endblock %}
   </body>
 </html>

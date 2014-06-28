@@ -6,6 +6,9 @@ from flask import Module, jsonify, request, render_template, current_app
 from swtstore.classes import oauth
 from swtstore.classes.models import Client, AuthorizedClients, User
 
+from swtstore.config import DefaultConfig
+
+config = DefaultConfig()
 
 Oauth = Module(__name__)
 
@@ -15,7 +18,7 @@ Oauth = Module(__name__)
 def authorize(*args, **kwargs):
     current_user = User.getCurrentUser()
     if current_user is None:
-        return render_template('oauth/login.html')
+        return render_template('oauth/login.html', config=config)
 
     if request.method == 'GET':
         client_id = kwargs.get('client_id')
@@ -29,9 +32,9 @@ def authorize(*args, **kwargs):
         # a HTML to allow access.
         authorized_clients = AuthorizedClients.getByUser(current_user)
         if client in authorized_clients:
-            return render_template('oauth/authorized.html', **kwargs)
+            return render_template('oauth/authorized.html', config=config, **kwargs)
         else:
-            return render_template('oauth/authorize.html', **kwargs)
+            return render_template('oauth/authorize.html', config=config, **kwargs)
 
     confirm = request.form.get('confirm', 'no')
     authorized = request.form.get('authorized', 'no')

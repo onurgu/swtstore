@@ -9,7 +9,7 @@
   to the swtstore on your behalf. You can revoke access to specific apps.
 </p>
 
-<form role="form" method="POST" action="{{ url_for('user.authorizedApps') }}">
+<form role="form" method="POST" action="{{ config.SWTSTORE_URL }}{{ url_for('user.authorizedApps') }}">
   <div class="form-group">
     <ul>
       {% for client in authorized_clients %}

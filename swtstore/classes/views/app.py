@@ -9,6 +9,9 @@ from werkzeug.security import gen_salt
 from swtstore.classes.models import Client, User
 from swtstore.classes.utils import urlnorm
 
+from swtstore.config import DefaultConfig
+
+config = DefaultConfig()
 
 app = Module(__name__)
 
@@ -20,7 +23,7 @@ def register():
         return redirect(url_for('frontend.index'))
 
     if request.method == 'GET':
-        return render_template('app/register.html')
+        return render_template('app/register.html', config=config)
 
     elif request.method == 'POST':
         req_fields = ['name', 'host_url', 'redirect_uris', 'scopes']

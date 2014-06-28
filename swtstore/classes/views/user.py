@@ -13,7 +13,6 @@ from swtstore.classes.models import User, Sweet, Context, Client,\
 
 from swtstore.config import DefaultConfig
 
-
 config = DefaultConfig()
 
 user = Module(__name__)
@@ -91,7 +90,8 @@ def profile():
         return redirect(url_for('frontend.index'))
 
     if request.method == 'GET':
-        return render_template('user/me.html', user=current_user.to_dict())
+        return render_template('user/me.html', user=current_user.to_dict(),
+                config=config)
 
     # else POST request
     username = request.form.get('username')
@@ -149,7 +149,8 @@ def authorizedApps():
     if request.method == 'GET':
         authorized_clients = AuthorizedClients.getByUser(user)
         return render_template('user/authorized_apps.html',
-                        authorized_clients=authorized_clients)
+                        authorized_clients=authorized_clients,
+                        config=config)
 
     # else POST request
     client_id = request.form.get('revoke-id', '')
